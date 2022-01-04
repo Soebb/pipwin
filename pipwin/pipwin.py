@@ -85,8 +85,10 @@ def build_cache():
     data = {}
     response = requests.request("GET", MAIN_URL, headers=HEADER)
 
-    soup = BeautifulSoup(response.text, features="html.parser")
-
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2552.0 " \
+                 "Safari/537.3"
+    soup = RoboBrowser(session=sess, parser="html.parser", user_agent=user_agent)
+    
     # We mock out a little javascript environment within which to run Gohlke's obfuscation code
     context = js2py.EvalJs()
     context.execute(
